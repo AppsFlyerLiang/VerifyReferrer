@@ -11,13 +11,11 @@ class MyApp: Application() {
         const val TAG = "AppsFlyer.MyApp"
         const val ConversionDataLoaded = BuildConfig.APPLICATION_ID + ".ConversionDataLoaded"
         const val DeepLinkingDataLoaded = BuildConfig.APPLICATION_ID + ".DeepLinkingDataLoaded"
-        const val InstallReferrerLoaded = BuildConfig.APPLICATION_ID + ".InstallReferrerLoaded"
         var cv: MutableMap<String, Any>? = null
         var oaoa: MutableMap<String, String>? = null
     }
     override fun onCreate() {
         super.onCreate()
-        InstallReferrerHelper.start(this)
         AppsFlyerLib.getInstance().setDebugLog(true)
         AppsFlyerLib.getInstance().init("SC6zv6Zb6N52vePBePs5Xo", listener, this)
         AppsFlyerLib.getInstance().startTracking(this)
