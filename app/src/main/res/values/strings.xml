@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">VerifyReferrer</string>
+    <string name="install_referrer">Install Referrer</string>
+    <string name="customer_user_id">Customer User Id</string>
+    <string name="conversion_data">Conversion Data</string>
+    <string name="deep_link_data">Deep Linking Data</string>
+    <string name="google_referrer_not_set">Google Play Install Referrer could not be fetched.</string>
+</resources>
