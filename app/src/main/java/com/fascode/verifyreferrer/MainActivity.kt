@@ -23,29 +23,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         updateInstallReferrer()
-        updateConversionData()
-        updateDeepLinkingData()
-        intentFilter.addAction(MyApp.ConversionDataLoaded)
-        intentFilter.addAction(MyApp.DeepLinkingDataLoaded)
         intentFilter.addAction(MyApp.InstallReferrerLoaded)
     }
 
     private val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             when(intent?.action) {
-                MyApp.ConversionDataLoaded -> updateConversionData()
-                MyApp.DeepLinkingDataLoaded -> updateDeepLinkingData()
                 MyApp.InstallReferrerLoaded -> updateInstallReferrer()
             }
         }
-    }
-
-    private fun updateConversionData() {
-        tvConversionData.text = getMapDataText(MyApp.cv).takeIf { it.isNotEmpty() } ?: "Initializing..."
-    }
-
-    private fun updateDeepLinkingData() {
-        tvDeepLinkingData.text = getMapDataText(MyApp.oaoa).takeIf { it.isNotEmpty() } ?: "No Re-targeting Data!"
     }
 
     override fun onStop() {
@@ -91,23 +77,6 @@ class MainActivity : AppCompatActivity() {
             tvInstallReferrer.text = getString(R.string.google_referrer_not_set)
         }
 
-    }
-
-    private fun getMapDataText(map: Map<String, Any>?): SpannableStringBuilder {
-        val spannableStringBuilder = SpannableStringBuilder()
-        var keyText : String
-        var valueText : String
-        var i = 0
-        map?.forEach {
-            i++
-            keyText = "(${String.format("%02d", i)})   ${it.key} : "
-            valueText = it.value.toString()
-            spannableStringBuilder.append(keyText + valueText + "\n")
-            val startIndex = spannableStringBuilder.indexOf(keyText) + keyText.length
-            spannableStringBuilder.setSpan(ForegroundColorSpan(Color.BLUE), startIndex, startIndex + valueText.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-            spannableStringBuilder.setSpan(StyleSpan(Typeface.BOLD_ITALIC), startIndex, startIndex + valueText.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-        }
-        return spannableStringBuilder
     }
 
 }
